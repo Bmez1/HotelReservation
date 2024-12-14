@@ -8,9 +8,10 @@ public sealed class Hotel : EntityBase<Guid>
     public string City { get; private set; }
     public long Phone { get; private set; }
     public string? Description { get; private set; }
+    public List<Room> Rooms { get; private set; }
     public bool IsEnabled { get; private set; } = true;
 
-    private Hotel(Guid id, string name, string country, long phone, string city, string? description, DateTime createdAt)
+    private Hotel(Guid id, string name, string country, long phone, string city, string? description, List<Room> rooms, DateTime createdAt)
     {
         Id = id;
         Name = name;
@@ -18,14 +19,26 @@ public sealed class Hotel : EntityBase<Guid>
         City = city;
         Description = description;
         Phone = phone;
+        Rooms = rooms;
         CreatedAt = createdAt;
     }
 
-    public void ToggleStatus()
+    public void Update(string name, string country, long phone, string city, string? description)
     {
-        IsEnabled = !IsEnabled;
+        Name = name;
+        Country = country;
+        City = city;
+        Description = description;
+        Phone = phone;
+        IsEnabled = true;
+    }
+
+    public void ToggleStatus(bool? state = null)
+    {
+        IsEnabled = state is null ? !IsEnabled : state.Value;
     }
 
     public static Hotel Create(string name, string country, long phone, string city, string? description) =>
-        new(Guid.NewGuid(), name, country, phone, city, description, DateTime.UtcNow);
+        new(Guid.NewGuid(), name.ToUpper(), country.ToUpper(), phone, city.ToUpper(), description, [], DateTime.UtcNow);
 }
+

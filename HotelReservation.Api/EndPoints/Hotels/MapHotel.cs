@@ -1,6 +1,13 @@
 ﻿using HotelReservation.Api.EndPoints.Hotels.Request;
-using HotelReservation.Application.UseCases.Hotels.Create;
+using HotelReservation.Api.HttpResponse;
+using HotelReservation.Application.UseCases.Hotels.ChangeStateHotel;
+using HotelReservation.Application.UseCases.Hotels.CreateHotel;
+using HotelReservation.Application.UseCases.Hotels.GetHotelById;
+using HotelReservation.Application.UseCases.Hotels.GetHotels;
+using HotelReservation.Application.UseCases.Hotels.UpdateHotel;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelReservation.Api.EndPoints.Hotels;
@@ -9,40 +16,51 @@ public static class MapHotel
 {
     public static RouteGroupBuilder MapHotelsEndpoints(this IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapGet("/", async () =>
+        endpoints.MapGet("/", async (IMediator mediator, bool all = false) =>
         {
-            await Task.Delay(1);
-            return Results.Ok("Hotels");
+            var result = await mediator.Send(new GetHotelsQuery(all));
+            return result.ToHttpResponse();
         });
 
-        endpoints.MapGet("/{id}", async (string id) =>
+        endpoints.MapGet("/{id:guid}", async (Guid id, IMediator mediator) =>
         {
-            await Task.Delay(1);
-            return Results.Ok($"Hotels {id}");
+            var result = await mediator.Send(new GetHotelByIdQuery(id));
+            return result.ToHttpResponse();
         });
 
         endpoints.MapPost("/", async ([FromBody] CreateHotelRequest request, IMediator mediator) =>
         {
-            Guid result = await mediator.Send(new CreateCommand(
+            var result = await mediator.Send(new CreateHotelCommand(
                 request.Name,
                 request.Country,
                 request.City,
                 request.Phone,
                 request.Description));
 
-            return Results.Ok(result);
+            return result.ToHttpResponse();
         });
 
-        endpoints.MapPut("/{id}", async () =>
+        endpoints.MapPut("/{id:guid}", async (Guid id, [FromBody] UpdateHotelRequest request, IMediator mediator) =>
         {
-            await Task.Delay(1);
-            return Results.Ok("Hotels");
+            var result = await mediator.Send(new UpdateHotelCommand(
+                id,
+                request.Name,
+                request.Country,
+                request.City,
+                request.Phone,
+                request.Description,
+                request.Disable));
+
+            return result.ToHttpResponse();
         });
 
-        endpoints.MapDelete("/{id}", async () =>
+        endpoints.MapPut("/State", async ([FromBody] ChangeStateHotelRequest request, IMediator mediator) =>
         {
-            await Task.Delay(1);
-            return Results.Ok("Hotels");
+            var result = await mediator.Send(new ChangeStateHotelCommand(
+                request.HoltelId,
+                request.Enable));
+
+            return result.ToHttpResponse();
         });
 
         return (RouteGroupBuilder)endpoints;

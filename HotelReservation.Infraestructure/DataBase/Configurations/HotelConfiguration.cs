@@ -1,4 +1,5 @@
 ﻿using HotelReservation.Domain.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,5 +13,19 @@ internal sealed class HotelConfiguration : IEntityTypeConfiguration<Hotel>
         builder.Property(x => x.City).IsRequired().HasMaxLength(50);
         builder.Property(x => x.Country).IsRequired().HasMaxLength(50);
         builder.Property(x => x.Description).IsRequired().HasMaxLength(100);
+
+        builder
+        .HasMany(h => h.Rooms)
+        .WithOne()
+        .HasForeignKey(r => r.HotelId);
+    }
+}
+
+internal sealed class RoomConfiguration : IEntityTypeConfiguration<Room>
+{
+    public void Configure(EntityTypeBuilder<Room> builder)
+    {
+        builder.HasKey(x => x.Id);
+        builder.Property(x => x.Number).IsRequired().HasMaxLength(30);
     }
 }

@@ -14,21 +14,21 @@ public class Repository<T, TId> : IRepository<T, TId> where T : EntityBase<TId>
         _dbContext = dbContext;
     }
 
-    public virtual async Task<T> GetByIdAsync(TId id, bool isTraking = false)
+    public virtual async Task<T?> GetByIdAsync(TId id, bool isTraking = false)
     {
-        return isTraking ? await _dbContext.Set<T>().AsNoTracking().SingleOrDefaultAsync(x => x.Id!.Equals(id)) :
+        return !isTraking ? await _dbContext.Set<T>().AsNoTracking().SingleOrDefaultAsync(x => x.Id!.Equals(id)) :
             await _dbContext.Set<T>().SingleOrDefaultAsync(x => x.Id!.Equals(id));
     }
 
     public virtual async Task<IEnumerable<T>> ListAsync(bool isTraking = false)
     {
-        return isTraking ? await _dbContext.Set<T>().AsNoTracking().ToListAsync() 
+        return !isTraking ? await _dbContext.Set<T>().AsNoTracking().ToListAsync() 
             : await _dbContext.Set<T>().ToListAsync();
     }
 
     public async Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> predicate, bool isTraking = false)
     {
-        return isTraking ? await _dbContext.Set<T>().AsNoTracking().Where(predicate).ToListAsync() :
+        return !isTraking ? await _dbContext.Set<T>().AsNoTracking().Where(predicate).ToListAsync() :
             await _dbContext.Set<T>().Where(predicate).ToListAsync();
     }
 
@@ -50,5 +50,16 @@ public class Repository<T, TId> : IRepository<T, TId> where T : EntityBase<TId>
     public async Task SaveChangesAsync()
     {
         await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
+    {
+        return await _dbContext.Set<T>().AsNoTracking().AnyAsync(predicate);
+    }
+
+    public IQueryable<T> QueryAsync(bool isTraking = false)
+    {
+        return !isTraking ? _dbContext.Set<T>().AsNoTracking().AsQueryable() :
+            _dbContext.Set<T>().AsQueryable();
     }
 }
