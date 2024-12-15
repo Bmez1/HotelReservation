@@ -2,7 +2,7 @@
 
 public static class MapReservation
 {
-    public static RouteGroupBuilder MapReservationssEndpoints(this IEndpointRouteBuilder endpoints)
+    public static RouteGroupBuilder MapReservationsEndpoints(this IEndpointRouteBuilder endpoints)
     {
         endpoints.MapGet("/", async () =>
         {

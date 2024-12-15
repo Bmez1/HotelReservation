@@ -1,4 +1,5 @@
 ﻿using HotelReservation.Api.EndPoints.Hotels.Request;
+using HotelReservation.Api.EndPoints.Rooms.Request;
 using HotelReservation.Api.HttpResponse;
 using HotelReservation.Application.UseCases.Hotels.ChangeStateHotel;
 using HotelReservation.Application.UseCases.Hotels.CreateHotel;

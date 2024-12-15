@@ -14,10 +14,21 @@ public class Repository<T, TId> : IRepository<T, TId> where T : EntityBase<TId>
         _dbContext = dbContext;
     }
 
-    public virtual async Task<T?> GetByIdAsync(TId id, bool isTraking = false)
+    public virtual async Task<T?> GetByIdAsync(TId id, bool isTraking = false, string[]? navigationProperties = null)
     {
-        return !isTraking ? await _dbContext.Set<T>().AsNoTracking().SingleOrDefaultAsync(x => x.Id!.Equals(id)) :
-            await _dbContext.Set<T>().SingleOrDefaultAsync(x => x.Id!.Equals(id));
+        var query = _dbContext.Set<T>().AsQueryable();
+
+        if (!isTraking)
+        {
+            query = query.AsNoTracking();
+        }
+
+        if (navigationProperties != null && navigationProperties.Length > 0)
+        {
+            query = IncludeMultiple(query, navigationProperties);
+        }
+
+        return await query.SingleOrDefaultAsync(x => x.Id!.Equals(id));
     }
 
     public virtual async Task<IEnumerable<T>> ListAsync(bool isTraking = false)
@@ -61,5 +72,16 @@ public class Repository<T, TId> : IRepository<T, TId> where T : EntityBase<TId>
     {
         return !isTraking ? _dbContext.Set<T>().AsNoTracking().AsQueryable() :
             _dbContext.Set<T>().AsQueryable();
+    }
+
+    private IQueryable<T> IncludeMultiple(IQueryable<T> query, params string[] navigationProperties)
+    {
+        if (navigationProperties != null)
+        {
+            query = navigationProperties.Aggregate(query,
+              (current, include) => current.Include(include));
+        }
+
+        return query;
     }
 }

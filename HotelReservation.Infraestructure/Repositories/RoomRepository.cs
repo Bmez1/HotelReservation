@@ -3,8 +3,9 @@ using HotelReservation.Domain.Entities;
 using HotelReservation.Infraestructure.DataBase;
 
 namespace HotelReservation.Infraestructure.Repositories;
-public class HotelRepository : Repository<Hotel, Guid>, IHotelRepository
-{
-    public HotelRepository(ApplicationDbContext dbContext) : base(dbContext) { }
 
+public class RoomRepository : Repository<Room, Guid>, IRoomRepository
+{
+    public RoomRepository(ApplicationDbContext dbContext) : base(dbContext) { }
 }
+

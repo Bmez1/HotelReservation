@@ -1,4 +1,4 @@
-﻿namespace HotelReservation.Api.EndPoints.Hotels.Request;
+﻿namespace HotelReservation.Api.EndPoints.Rooms.Request;
 
 public class ChangeStateHotelRequest
 {

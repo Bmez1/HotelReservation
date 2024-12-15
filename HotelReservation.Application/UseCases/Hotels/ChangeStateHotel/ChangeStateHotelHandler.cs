@@ -12,7 +12,7 @@ namespace HotelReservation.Application.UseCases.Hotels.ChangeStateHotel
     {
         public async Task<Result<Guid>> Handle(ChangeStateHotelCommand request, CancellationToken cancellationToken)
         {
-            Hotel? hotel = await hotelRepository.GetByIdAsync(request.HotelId, true);
+            Hotel? hotel = await hotelRepository.GetByIdAsync(request.HotelId, true, ["Rooms"]);
 
             if (hotel is null)
             {

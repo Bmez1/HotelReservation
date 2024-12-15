@@ -12,9 +12,23 @@ public class Room : EntityBase<Guid>
     public decimal Taxes { get; private set; }
     public string Location { get; set; }
     public RoomType Type { get; private set; }
+    public int BedCount { get; private set; }
+    public int Capacity { get; private set; }
     public bool IsEnabled { get; private set; } = true;
+    public string? DisableReason { get; private set; }
 
-    private Room(Guid id, string number, decimal baseCost, decimal taxes, string location, RoomType type, Guid hotelId, DateTime createdAt)
+    private Room(
+        Guid id, 
+        string number, 
+        decimal baseCost,
+        decimal taxes,
+        string location,
+        RoomType type,
+        Guid hotelId,
+        int bedCount,
+        int capacity,
+        DateTime createdAt,
+        string? disableReason = null)
     {
         Id = id;
         Number = number;
@@ -23,23 +37,44 @@ public class Room : EntityBase<Guid>
         Location = location;
         Type = type;
         HotelId = hotelId;
+        BedCount = bedCount;
+        Capacity = capacity;
         CreatedAt = createdAt;
+        DisableReason = disableReason;
     }
 
-    public static Room Create(string number, decimal baseCost, decimal taxes, string location, RoomType type, Guid hotelId) =>
-        new(Guid.NewGuid(), number, baseCost, taxes, location, type, hotelId, DateTime.UtcNow);
+    public static Room Create(
+        string number,
+        decimal baseCost,
+        decimal taxes,
+        string location,
+        RoomType type,
+        Guid hotelId,
+        int bedCount,
+        int capacity) =>
+        new(Guid.NewGuid(), number, baseCost, taxes, location, type, hotelId, bedCount, capacity, DateTime.UtcNow);
 
-    public void Update(decimal newBaseCost, decimal newTaxes, RoomType newType, string newNumber, string newLocation)
+    public void Update(decimal newBaseCost, decimal newTaxes, RoomType newType, string newNumber, string newLocation, int newBedCount, int newCapacity)
     {
         BaseCost = newBaseCost;
         Taxes = newTaxes;
         Type = newType;
         Number = newNumber;
         Location = newLocation;
+        BedCount = newBedCount;
+        Capacity = newCapacity;
     }
 
-    public void Activate() => IsEnabled = true;
+    public void Activate()
+    {
+        IsEnabled = true;
+        DisableReason = null;
+    }
 
-    public void Deactivate() => IsEnabled = false;
+    public void Deactivate(string reason)
+    {
+        IsEnabled = false;
+        DisableReason = reason;
+    }
 }
 

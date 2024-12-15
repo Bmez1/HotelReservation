@@ -4,6 +4,7 @@ using HotelReservation.Infraestructure.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelReservation.Infraestructure.DataBase.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241214170346_Add-rooms")]
+    partial class Addrooms
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,18 +74,8 @@ namespace HotelReservation.Infraestructure.DataBase.Migrations
                     b.Property<decimal>("BaseCost")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("BedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("DisableReason")
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
 
                     b.Property<Guid>("HotelId")
                         .HasColumnType("uniqueidentifier");
@@ -108,8 +101,7 @@ namespace HotelReservation.Infraestructure.DataBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HotelId", "Number")
-                        .IsUnique();
+                    b.HasIndex("HotelId");
 
                     b.ToTable("Rooms");
                 });
