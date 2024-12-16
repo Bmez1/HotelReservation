@@ -16,6 +16,7 @@ public class Room : EntityBase<Guid>
     public int Capacity { get; private set; }
     public bool IsEnabled { get; private set; } = true;
     public string? DisableReason { get; private set; }
+    public List<Reservation> Reservations { get; private set; } = [];
 
     private Room(
         Guid id, 

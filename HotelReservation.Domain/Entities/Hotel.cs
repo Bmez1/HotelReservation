@@ -9,6 +9,7 @@ public sealed class Hotel : EntityBase<Guid>
     public long Phone { get; private set; }
     public string? Description { get; private set; }
     public List<Room> Rooms { get; private set; } = [];
+    public List<Reservation> Reservations { get; private set; } = [];
     public bool IsEnabled { get; private set; } = true;
 
     private Hotel(Guid id, string name, string country, long phone, string city, string? description, DateTime createdAt)

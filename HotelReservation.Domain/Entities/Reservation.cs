@@ -17,6 +17,8 @@ namespace HotelReservation.Domain.Entities
         public EmergencyContact EmergencyContact { get; private set; }
         public List<Passenger> Passengers { get; private set; } = [];
 
+        private Reservation() { }
+
         private Reservation(
             Guid id,
             Guid hotelId,
@@ -51,6 +53,5 @@ namespace HotelReservation.Domain.Entities
             int numberOfGuests,
             EmergencyContact emergencyContact) =>
             new(Guid.NewGuid(), hotelId, travelerId, roomId, checkInDate, checkOutDate, reservationStatus, numberOfGuests, emergencyContact, DateTime.UtcNow);
-
     }
 }

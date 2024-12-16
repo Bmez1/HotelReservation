@@ -7,17 +7,17 @@ using Microsoft.Extensions.Options;
 
 using MimeKit;
 
-using Serilog.Core;
+using Serilog;
 
 namespace HotelReservation.Infraestructure.Services
 {
-    internal class EmailSender(Logger logger, IOptions<SmtpConfiguration> options) : IEmailSender
+    internal class EmailSender(ILogger logger, IOptions<SmtpConfiguration> options) : IEmailSender
     {
         public SmtpConfiguration SmtpConfiguration { get; } = options.Value;
         public async Task SendEmailAsync(string email, string subject, string body)
         {
             logger.Information("Sending email to {To} from {From} with subject {Subject}.", email, SmtpConfiguration.Sender, subject);
-            
+
             using var client = new SmtpClient();
             await client.ConnectAsync(SmtpConfiguration.Host, SmtpConfiguration.Port, false);
             var message = new MimeMessage();

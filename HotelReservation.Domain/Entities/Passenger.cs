@@ -6,7 +6,6 @@ namespace HotelReservation.Domain.Entities
 {
     public class Passenger : EntityBase<Guid>
     {
-
         public string FullName { get; private set; }
         public DateTime DateOfBirth { get; private set; }
         public Gender Gender { get; private set; }
@@ -35,6 +34,15 @@ namespace HotelReservation.Domain.Entities
             Email = email;
             PhoneNumber = phoneNumber;
             CreatedAt = createdAt;
+        }
+
+        public void Update(string fullName, DateTime dateOfBirth, Gender gender, string email, string phoneNumber)
+        {
+            FullName = fullName;
+            DateOfBirth = dateOfBirth;
+            Gender = gender;
+            Email = email;
+            PhoneNumber = phoneNumber;
         }
 
         public static Passenger Create(
