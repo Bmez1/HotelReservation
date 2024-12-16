@@ -1,13 +1,17 @@
 using HotelReservation.Api.EndPoints;
-using HotelReservation.Infraestructure;
-using HotelReservation.Application;
-using Serilog;
 using HotelReservation.Api.GlobalException;
+using HotelReservation.Application;
+using HotelReservation.Infraestructure;
+using HotelReservation.Infraestructure.Configurations;
+
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container.
+
+builder.Services.Configure<SmtpConfiguration>(builder.Configuration.GetSection("SmtpConfiguration"));
 
 builder.Services
     .AddApplication()
