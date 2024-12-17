@@ -16,6 +16,7 @@ namespace HotelReservation.Domain.Entities
         public int NumberOfGuests { get; private set; }
         public EmergencyContact EmergencyContact { get; private set; }
         public List<Passenger> Passengers { get; private set; } = [];
+        public int PassengerCount { get; private set; } = 0;
 
         private Reservation() { }
 
@@ -29,6 +30,7 @@ namespace HotelReservation.Domain.Entities
             ReservationStatus reservationStatus,
             int numberOfGuests,
             EmergencyContact emergencyContact,
+            int passengerCount,
             DateTime createdAt)
         {
             Id = id;
@@ -40,6 +42,7 @@ namespace HotelReservation.Domain.Entities
             ReservationStatus = reservationStatus;
             NumberOfGuests = numberOfGuests;
             EmergencyContact = emergencyContact;
+            PassengerCount = passengerCount;
             CreatedAt = createdAt;
         }
 
@@ -52,11 +55,25 @@ namespace HotelReservation.Domain.Entities
             ReservationStatus reservationStatus,
             int numberOfGuests,
             EmergencyContact emergencyContact) =>
-            new(Guid.NewGuid(), hotelId, travelerId, roomId, checkInDate, checkOutDate, reservationStatus, numberOfGuests, emergencyContact, DateTime.UtcNow);
+            new(
+                Guid.NewGuid(),
+                hotelId,
+                travelerId, 
+                roomId, 
+                checkInDate, 
+                checkOutDate, 
+                reservationStatus,
+                numberOfGuests,
+                emergencyContact,
+                0,
+                DateTime.UtcNow);
 
         public void AddPassenger(Passenger passenger)
         {
             Passengers.Add(passenger);
         }
+
+        public bool CanAddPassenger() => PassengerCount < NumberOfGuests;
+
     }
 }

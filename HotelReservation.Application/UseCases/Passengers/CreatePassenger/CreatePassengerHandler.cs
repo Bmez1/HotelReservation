@@ -27,6 +27,11 @@ public class CreatePassengerHandler(IPassengerRepository passengerRepository,
             }
         }
 
+        if (!reservation?.CanAddPassenger() ?? true)
+        {
+            return Result.Failure<PassengerResponseDto>(ReservationError.CannotAddPassenger);
+        }
+
         var passenger = (await passengerRepository
             .ListAsync(p => p.DocumentNumber == request.DocumentNumber && p.DocumentType == request.DocumentType, true))
             .FirstOrDefault();

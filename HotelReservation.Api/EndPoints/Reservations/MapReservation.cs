@@ -1,6 +1,8 @@
 ﻿using HotelReservation.Api.EndPoints.Reservations.Request;
 using HotelReservation.Api.HttpResponse;
 using HotelReservation.Application.UseCases.Reservations.CreateReservation;
+using HotelReservation.Application.UseCases.Reservations.GetReservationbyId;
+using HotelReservation.Application.UseCases.Reservations.GetReservations;
 
 using MediatR;
 
@@ -12,16 +14,16 @@ public static class MapReservation
 {
     public static RouteGroupBuilder MapReservationsEndpoints(this IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapGet("/", async () =>
+        endpoints.MapGet("/", async (IMediator mediator) =>
         {
-            await Task.Delay(1);
-            return Results.Ok("Hotels");
+            var result = await mediator.Send(new GetReservationsQuery());
+            return result.ToHttpResponse();
         });
 
-        endpoints.MapGet("/{id}", async (string id) =>
+        endpoints.MapGet("/{id}", async (Guid id, IMediator mediator) =>
         {
-            await Task.Delay(1);
-            return Results.Ok($"Hotels {id}");
+            var result = await mediator.Send(new GetReservationByIdQuery(id));
+            return result.ToHttpResponse();
         });
 
         endpoints.MapPost("/", async ([FromBody] CreateReservationRequest request, IMediator mediator) =>
