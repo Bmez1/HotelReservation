@@ -54,7 +54,8 @@ namespace HotelReservation.Domain.Entities
             DateTime checkOutDate,
             ReservationStatus reservationStatus,
             int numberOfGuests,
-            EmergencyContact emergencyContact) =>
+            EmergencyContact emergencyContact,
+            int passengerCount = 0) =>
             new(
                 Guid.NewGuid(),
                 hotelId,
@@ -65,7 +66,7 @@ namespace HotelReservation.Domain.Entities
                 reservationStatus,
                 numberOfGuests,
                 emergencyContact,
-                0,
+                passengerCount,
                 DateTime.UtcNow);
 
         public void AddPassenger(Passenger passenger)
