@@ -8,6 +8,7 @@ using MediatR;
 namespace HotelReservation.Application.UseCases.Passengers.CreatePassenger;
 
 public record CreatePassengerCommand(
+    Guid? ReservationId,
     string FullName,
     DateTime DateOfBirth,
     Gender Gender,

@@ -3,15 +3,30 @@
 using HotelReservation.Application.Interfaces;
 using HotelReservation.Application.UseCases.Passengers.Dtos;
 using HotelReservation.Domain.Entities;
+using HotelReservation.Domain.Errors;
 
 using MediatR;
 
 namespace HotelReservation.Application.UseCases.Passengers.CreatePassenger;
 
-public class CreatePassengerHandler(IPassengerRepository passengerRepository) : IRequestHandler<CreatePassengerCommand, Result<PassengerResponseDto>>
+public class CreatePassengerHandler(IPassengerRepository passengerRepository,
+    IReservationRepository reservationRepository) : IRequestHandler<CreatePassengerCommand, Result<PassengerResponseDto>>
 {
     public async Task<Result<PassengerResponseDto>> Handle(CreatePassengerCommand request, CancellationToken cancellationToken)
     {
+        Reservation? reservation = null;
+
+        if (request.ReservationId is not null)
+        {
+            reservation = await reservationRepository
+                .GetByIdAsync(request.ReservationId.Value, true);
+
+            if (reservation is null)
+            {
+                return Result.Failure<PassengerResponseDto>(ReservationError.NotFoundById);
+            }
+        }
+
         var passenger = (await passengerRepository
             .ListAsync(p => p.DocumentNumber == request.DocumentNumber && p.DocumentType == request.DocumentType, true))
             .FirstOrDefault();
@@ -34,6 +49,7 @@ public class CreatePassengerHandler(IPassengerRepository passengerRepository) : 
             await passengerRepository.AddAsync(passenger);
         }
 
+        reservation?.AddPassenger(passenger);
         await passengerRepository.SaveChangesAsync();
 
         return new PassengerResponseDto(

@@ -15,6 +15,7 @@ public static class MapPassengers
         endpoints.MapPost("/", async ([FromBody] CreatePassengerRequest request, IMediator mediator) =>
         {
             var createPassengerCommand = new CreatePassengerCommand(
+                request.ReservationId,
                 request.FullName,
                 request.DateOfBirth,
                 request.Gender,

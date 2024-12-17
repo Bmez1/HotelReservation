@@ -53,5 +53,10 @@ namespace HotelReservation.Domain.Entities
             int numberOfGuests,
             EmergencyContact emergencyContact) =>
             new(Guid.NewGuid(), hotelId, travelerId, roomId, checkInDate, checkOutDate, reservationStatus, numberOfGuests, emergencyContact, DateTime.UtcNow);
+
+        public void AddPassenger(Passenger passenger)
+        {
+            Passengers.Add(passenger);
+        }
     }
 }
