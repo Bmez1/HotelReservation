@@ -7,12 +7,22 @@ using MediatR;
 
 namespace HotelReservation.Application.UseCases.Rooms.ChangeStateRoom
 {
-    public class ChangeStateRoomHandler(IRoomRepository roomRepository) : IRequestHandler<ChangeStateRoomCommand, Result<Guid>>
+    public class ChangeStateRoomHandler(IHotelRepository hotelRepository) : IRequestHandler<ChangeStateRoomCommand, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(ChangeStateRoomCommand request, CancellationToken cancellationToken)
         {
-            var room = await roomRepository.GetByIdAsync(request.RoomId, true);
-            if (room is null || room.HotelId != request.HotelId)
+            var hotel = (await hotelRepository.ListAsync(h => h.Id == request.HotelId &&
+                h.Rooms.Any(r => r.Id == request.RoomId), true, ["Rooms"]))
+                .FirstOrDefault();
+
+            var room = hotel?.Rooms.FirstOrDefault(r => r.Id == request.RoomId);
+
+            if (hotel is null || !hotel.IsEnabled)
+            {
+                return Result.Failure<Guid>(HotelError.NotFoundByIdOrDisabled);
+            }
+
+            if (room is null)
             {
                 return Result.Failure<Guid>(RoomError.NotFound);
             }
@@ -32,7 +42,7 @@ namespace HotelReservation.Application.UseCases.Rooms.ChangeStateRoom
                 room.Deactivate(request.ReasonDisable!);
             }
 
-            await roomRepository.SaveChangesAsync();
+            await hotelRepository.SaveChangesAsync();
 
             return Result.Success(room.Id);
         }

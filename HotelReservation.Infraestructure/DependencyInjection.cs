@@ -1,5 +1,4 @@
 ﻿using HotelReservation.Application.Interfaces;
-using HotelReservation.Infraestructure.Configurations;
 using HotelReservation.Infraestructure.DataBase;
 using HotelReservation.Infraestructure.Repositories;
 using HotelReservation.Infraestructure.Services;
@@ -23,6 +22,7 @@ public static class DependencyInjection
         services.AddScoped<IHotelRepository, HotelRepository>();
         services.AddScoped<IRoomRepository, RoomRepository>();
         services.AddScoped<IPassengerRepository, PassengerRepository>();
+        services.AddScoped<IReservationRepository, ReservationRepository>();
         services.AddScoped<IEmailSender, EmailSender>();
         return services;
     }

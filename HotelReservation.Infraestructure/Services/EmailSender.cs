@@ -20,6 +20,7 @@ namespace HotelReservation.Infraestructure.Services
 
             using var client = new SmtpClient();
             await client.ConnectAsync(SmtpConfiguration.Host, SmtpConfiguration.Port, false);
+            await client.AuthenticateAsync(SmtpConfiguration.User, SmtpConfiguration.Key);
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(SmtpConfiguration.Sender, SmtpConfiguration.Sender));
             message.To.Add(new MailboxAddress(email, email));

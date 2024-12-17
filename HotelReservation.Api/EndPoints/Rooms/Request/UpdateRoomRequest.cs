@@ -12,6 +12,4 @@ namespace HotelReservation.Api.EndPoints.Rooms.Request
         public int BedCount { get; init; }
         public int Capacity { get; init; }
     }
-
-
 }

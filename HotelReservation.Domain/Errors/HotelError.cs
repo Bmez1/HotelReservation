@@ -11,5 +11,14 @@ namespace HotelReservation.Domain.Errors
         public static Error NotFoundById => Error.NotFound(
             "Hotel.NotFound",
             "There is no hotel with the given id");
+
+        public static Error NotFoundByIdOrDisabled => Error.NotFound(
+            "Hotel.NotFoundOrDisabled",
+            "There is no hotel with the indicated ID or it is disabled.");
+
+        public static Error NotAvailableForReservation => Error.NotFound(
+        "Hotel.NotAvailableForReservation",
+   "There is no availability to create the reservation. Please check the available hotels again.");
+
     }
 }

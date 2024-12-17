@@ -20,7 +20,7 @@ namespace HotelReservation.Application.UseCases.Rooms.GetRooms
                 return Result.Failure<IEnumerable<RoomResponseDto>>(HotelError.NotFoundById);
             }
 
-            return Result.Success(hotel.GetRooms(request.All).Select(room => new RoomResponseDto()
+            var rooms = hotel.GetRooms(request.All).Select(room => new RoomResponseDto()
             {
                 Id = room.Id,
                 RoomNumber = room.Number,
@@ -29,7 +29,9 @@ namespace HotelReservation.Application.UseCases.Rooms.GetRooms
                 Location = room.Location,
                 Taxes = room.Taxes,
                 Type = nameof(room.Type)
-            }));
+            });
+
+            return Result.Success(rooms, totalData: rooms.Count());
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using HotelReservation.Api.EndPoints.Hotels.Request;
-using HotelReservation.Api.EndPoints.Rooms.Request;
 using HotelReservation.Api.HttpResponse;
 using HotelReservation.Application.UseCases.Hotels.ChangeStateHotel;
 using HotelReservation.Application.UseCases.Hotels.CreateHotel;
 using HotelReservation.Application.UseCases.Hotels.GetHotelById;
 using HotelReservation.Application.UseCases.Hotels.GetHotels;
+using HotelReservation.Application.UseCases.Hotels.GetHotelsForReservation;
 using HotelReservation.Application.UseCases.Hotels.UpdateHotel;
 
 using MediatR;
@@ -60,6 +60,18 @@ public static class MapHotel
             var result = await mediator.Send(new ChangeStateHotelCommand(
                 request.HoltelId,
                 request.Enable));
+
+            return result.ToHttpResponse();
+        });
+
+        endpoints.MapPost("/Rooms", async ([FromBody] HotelSearchRequest request, IMediator mediator) =>
+        {
+            var result = await mediator.Send(new GetHotelsForReservationQuery(
+                request.CheckInDate,
+                request.CheckOutDate,
+                request.NumberOfGuests,
+                request.DestinationCity
+                ));
 
             return result.ToHttpResponse();
         });

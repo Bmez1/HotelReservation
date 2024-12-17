@@ -37,10 +37,21 @@ public class Repository<T, TId> : IRepository<T, TId> where T : EntityBase<TId>
             : await _dbContext.Set<T>().ToListAsync();
     }
 
-    public async Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> predicate, bool isTraking = false)
+    public async Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> predicate, bool isTraking = false, string[]? navigationProperties = null)
     {
-        return !isTraking ? await _dbContext.Set<T>().AsNoTracking().Where(predicate).ToListAsync() :
-            await _dbContext.Set<T>().Where(predicate).ToListAsync();
+        var query = _dbContext.Set<T>().AsQueryable();
+
+        if (!isTraking)
+        {
+            query = query.AsNoTracking();
+        }
+
+        if (navigationProperties != null && navigationProperties.Length > 0)
+        {
+            query = IncludeMultiple(query, navigationProperties);
+        }
+
+        return await query.Where(predicate).ToListAsync();
     }
 
     public async Task AddAsync(T entity)

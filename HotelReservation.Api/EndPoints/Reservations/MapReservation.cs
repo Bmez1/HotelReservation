@@ -1,4 +1,12 @@
-﻿namespace HotelReservation.Api.EndPoints.Reservations;
+﻿using HotelReservation.Api.EndPoints.Reservations.Request;
+using HotelReservation.Api.HttpResponse;
+using HotelReservation.Application.UseCases.Reservations.CreateReservation;
+
+using MediatR;
+
+using Microsoft.AspNetCore.Mvc;
+
+namespace HotelReservation.Api.EndPoints.Reservations;
 
 public static class MapReservation
 {
@@ -16,22 +24,21 @@ public static class MapReservation
             return Results.Ok($"Hotels {id}");
         });
 
-        endpoints.MapPost("/", async () =>
+        endpoints.MapPost("/", async ([FromBody] CreateReservationRequest request, IMediator mediator) =>
         {
-            await Task.Delay(1);
-            return Results.Ok("Hotels");
-        });
+            var command = new CreateReservationCommand(
+                request.HotelId,
+                request.RoomId,
+                request.TravelerId,
+                request.DestinationCity,
+                request.CheckInDate,
+                request.CheckOutDate,
+                request.NumberOfGuests,
+                request.EmergencyContactFullName,
+                request.EmergencyContactPhoneNumber);
 
-        endpoints.MapPut("/{id}", async () =>
-        {
-            await Task.Delay(1);
-            return Results.Ok("Hotels");
-        });
-
-        endpoints.MapDelete("/{id}", async () =>
-        {
-            await Task.Delay(1);
-            return Results.Ok("Hotels");
+            var result = await mediator.Send(command);
+            return result.ToHttpResponse();
         });
 
         return (RouteGroupBuilder)endpoints;

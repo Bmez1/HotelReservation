@@ -1,6 +1,4 @@
-﻿using HotelReservation.Domain.Enums;
-
-namespace HotelReservation.Application.UseCases.Rooms.Dtos
+﻿namespace HotelReservation.Application.UseCases.Rooms.Dtos
 {
     public class RoomResponseDto
     {
