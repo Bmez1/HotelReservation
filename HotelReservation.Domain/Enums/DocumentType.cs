@@ -2,7 +2,7 @@
 {
     public enum DocumentType
     {
-        CC,
+        CC = 1,
         TI,
         CE,
         PP

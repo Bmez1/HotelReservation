@@ -54,7 +54,7 @@ namespace HotelReservation.UnitTest.UseCases.Rooms
             Assert.True(result.IsSuccess);
             Assert.NotNull(result.Value);
             Assert.Equal(command.HotelId, result.Value.HotelId);
-            Assert.Equal(command.RoomNumber, result.Value.RoomNumber);
+            Assert.Equal(command.RoomNumber.ToUpper(), result.Value.RoomNumber);
         }
 
 
