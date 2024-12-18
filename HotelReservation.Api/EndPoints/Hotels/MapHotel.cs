@@ -74,7 +74,7 @@ public static class MapHotel
                 ));
 
             return result.ToHttpResponse();
-        });
+        }).WithDescription("Endpoint used to retrieve available hotels with their rooms.");
 
         return (RouteGroupBuilder)endpoints;
     }
