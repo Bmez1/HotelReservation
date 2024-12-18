@@ -7,6 +7,8 @@ namespace HotelReservation.Application.UseCases.Hotels.Dtos
         public required Guid HotelId { get; set; }
         public required Guid RoomId { get; set; }
         public required long Phone { get; set; }
+        public required int BedCount { get; set; }
+        public required int Capacity { get; set; }
         public required string HotelName { get; set; }
         public required string RoomNumber { get; set; } = string.Empty;
         public required decimal BaseCost { get; set; }
