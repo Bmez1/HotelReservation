@@ -34,7 +34,9 @@ public class HotelRepository : Repository<Hotel, Guid>, IHotelRepository
                         Type = room.Type,
                         RoomNumber = room.Number,
                         BaseCost = room.BaseCost,
-                        Taxes = room.Taxes
+                        Taxes = room.Taxes,
+                        Capacity = room.Capacity,
+                        BedCount = room.BedCount
                     };
 
         return await query

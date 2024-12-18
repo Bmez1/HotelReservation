@@ -6,7 +6,7 @@ public record PassengerResponseDto(
     Guid Id,
     string FullName,
     DateTime DateOfBirth,
-    Gender Gender,
+    string Gender,
     string DocumentType,
     string DocumentNumber,
     string Email,

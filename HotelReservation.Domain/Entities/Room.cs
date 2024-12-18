@@ -53,15 +53,15 @@ public class Room : EntityBase<Guid>
         Guid hotelId,
         int bedCount,
         int capacity) =>
-        new(Guid.NewGuid(), number, baseCost, taxes, location, type, hotelId, bedCount, capacity, DateTime.UtcNow);
+        new(Guid.NewGuid(), number.ToUpper(), baseCost, taxes, location.ToUpper(), type, hotelId, bedCount, capacity, DateTime.UtcNow);
 
     public void Update(decimal newBaseCost, decimal newTaxes, RoomType newType, string newNumber, string newLocation, int newBedCount, int newCapacity)
     {
         BaseCost = newBaseCost;
         Taxes = newTaxes;
         Type = newType;
-        Number = newNumber;
-        Location = newLocation;
+        Number = newNumber.ToUpper();
+        Location = newLocation.ToUpper();
         BedCount = newBedCount;
         Capacity = newCapacity;
     }
