@@ -27,7 +27,7 @@ public static class MapPassengers
                 );
             var result = await mediator.Send(createPassengerCommand);
             return result.ToHttpResponse();
-        });
+        }).WithDescription("ReservationId is optional");
 
         endpoints.MapGet("/", async (IMediator mediator) =>
         {

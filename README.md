@@ -42,24 +42,24 @@ este enum representa los tipos de errores que pueden ocurrir en la aplicación.
 
 Gender Enum: este enum representa los tipos de género.
 
-- 0	Male
-- 1	Female
-- 2	Other
+- 1	Male
+- 2	Female
+- 3	Other
 
 DocumentType Enum: este enum representa los tipos de documentos.
 
-- 0	CC
-- 1	TI
-- 2	CE
-- 3	PP
+- 1	CC
+- 2	TI
+- 3	CE
+- 4	PP
 
 RoomType Enum: este enum representa los tipos de habitaciones.
 
-- 0	Single
-- 1	Double
-- 2	Suite
-- 3	Deluxe
-- 4	Family
+- 1	Single
+- 2	Double
+- 3	Suite
+- 4	Deluxe
+- 5	Family
 
 ReservationStatus Enum: este enum representa los estados de una reserva.
 
