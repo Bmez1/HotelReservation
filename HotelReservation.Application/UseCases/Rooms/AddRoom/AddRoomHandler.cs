@@ -47,7 +47,7 @@ namespace HotelReservation.Application.UseCases.Rooms.AddRoom
                 RoomNumber = room.Number,
                 BaseCost = room.BaseCost,
                 Taxes = room.Taxes,
-                Type = nameof(room.Type),
+                Type = room.Type.ToString(),
                 Location = room.Location
             };
         }

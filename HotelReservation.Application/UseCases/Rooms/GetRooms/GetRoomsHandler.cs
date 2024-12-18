@@ -28,7 +28,7 @@ namespace HotelReservation.Application.UseCases.Rooms.GetRooms
                 HotelId = hotel.Id,
                 Location = room.Location,
                 Taxes = room.Taxes,
-                Type = nameof(room.Type)
+                Type = room.Type.ToString()
             });
 
             return Result.Success(rooms, totalData: rooms.Count());
