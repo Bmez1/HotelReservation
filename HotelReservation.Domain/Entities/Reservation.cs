@@ -72,6 +72,7 @@ namespace HotelReservation.Domain.Entities
         public void AddPassenger(Passenger passenger)
         {
             Passengers.Add(passenger);
+            PassengerCount++;
         }
 
         public bool CanAddPassenger() => PassengerCount < NumberOfGuests;

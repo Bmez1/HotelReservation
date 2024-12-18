@@ -24,7 +24,7 @@ namespace HotelReservation.Application.UseCases.Reservations.GetReservations
                 EmergencyContact = reservation.EmergencyContact,
                 HotelId = reservation.HotelId,
                 NumberOfGuests = reservation.NumberOfGuests,
-                ReservationStatus = nameof(reservation.ReservationStatus),
+                ReservationStatus = reservation.ReservationStatus.ToString(),
                 PassengerCount = reservation.PassengerCount,
                 TravelerId = reservation.TravelerId,
                 CreatedAt = reservation.CreatedAt                

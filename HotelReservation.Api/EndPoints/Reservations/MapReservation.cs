@@ -41,7 +41,7 @@ public static class MapReservation
 
             var result = await mediator.Send(command);
             return result.ToHttpResponse();
-        });
+        }).WithDescription("TravelerId is the ID of a passenger registered in the system.");
 
         return (RouteGroupBuilder)endpoints;
     }

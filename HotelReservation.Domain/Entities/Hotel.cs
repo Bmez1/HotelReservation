@@ -25,9 +25,9 @@ public sealed class Hotel : EntityBase<Guid>
 
     public void Update(string name, string country, long phone, string city, string? description)
     {
-        Name = name;
-        Country = country;
-        City = city;
+        Name = name.ToUpper();
+        Country = country.ToUpper();
+        City = city.ToUpper();
         Description = description;
         Phone = phone;
         IsEnabled = true;

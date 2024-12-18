@@ -27,7 +27,7 @@ public class CreatePassengerHandler(IPassengerRepository passengerRepository,
             }
         }
 
-        if (!reservation?.CanAddPassenger() ?? true)
+        if (reservation is not null && !reservation.CanAddPassenger())
         {
             return Result.Failure<PassengerResponseDto>(ReservationError.CannotAddPassenger);
         }
@@ -62,7 +62,7 @@ public class CreatePassengerHandler(IPassengerRepository passengerRepository,
             passenger.FullName,
             passenger.DateOfBirth,
             passenger.Gender,
-            nameof(passenger.DocumentType), 
+            passenger.DocumentType.ToString(), 
             passenger.DocumentNumber,
             passenger.Email,
             passenger.PhoneNumber

@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>316b7308-b6c1-45f4-81c6-f0a8ae917158</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <DocumentationFile>C:\Users\bmez\source\repos\HotelReservation\SwaggerAnnotations.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
