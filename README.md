@@ -30,6 +30,44 @@ El proyecto aplica Arquitectura limpia y sigue principios de Domain-Driven Desig
 - Ejecutar Migraciones: dotnet ef database update para aplicar las migraciones de la base de datos.
 - Ejecutar la Aplicación: dotnet run para iniciar la aplicación.
 
+## Enums
+ErrorType Enum: 
+este enum representa los tipos de errores que pueden ocurrir en la aplicación.
+
+- 0	Failure
+- 1	Validation
+- 2	Problem
+- 3	NotFound
+- 4	Conflict
+
+Gender Enum: este enum representa los tipos de género.
+
+- 0	Male
+- 1	Female
+- 2	Other
+
+DocumentType Enum: este enum representa los tipos de documentos.
+
+- 0	CC
+- 1	TI
+- 2	CE
+- 3	PP
+
+RoomType Enum: este enum representa los tipos de habitaciones.
+
+- 0	Single
+- 1	Double
+- 2	Suite
+- 3	Deluxe
+- 4	Family
+
+ReservationStatus Enum: este enum representa los estados de una reserva.
+
+- 1	Active
+- 2	CheckedIn
+- 3	Cancelled
+- 4	NoShow
+
 ## Uso
 API Endpoints: La aplicación expone varios endpoints para interactuar con las funcionalidades de hoteles, habitaciones y reservas.
 Pruebas: Ejecutar dotnet test para correr las pruebas unitarias.
