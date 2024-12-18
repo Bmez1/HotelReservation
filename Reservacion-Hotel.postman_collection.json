@@ -1,0 +1,903 @@
+{
+	"info": {
+		"_postman_id": "519f81d6-89ac-4f48-a73d-ceb522c19668",
+		"name": "Reservacion-Hotel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28862676",
+		"_collection_link": "https://red-moon-372805.postman.co/workspace/DiasLimite~618f974c-0d2f-4264-a353-89a443e163ac/collection/28862676-519f81d6-89ac-4f48-a73d-ceb522c19668?action=share&source=collection_link&creator=28862676"
+	},
+	"item": [
+		{
+			"name": "Create-Hotel",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"El Merendero\",\r\n  \"country\": \"colombia\",\r\n  \"city\": \"Valledupar\",\r\n  \"phone\": 3214569874,\r\n  \"description\": \"Familiar\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Hotels",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Hotels"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Hotels",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/Hotels?all=true",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Hotels"
+					],
+					"query": [
+						{
+							"key": "all",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-HotelbyId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/Hotels/:hotelId",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Hotels",
+						":hotelId"
+					],
+					"variable": [
+						{
+							"key": "hotelId",
+							"value": "4618d18d-ccfd-4f7a-ad7d-2b1771dc987a"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Hotels/:hotelId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Hotels",
+								":hotelId"
+							],
+							"variable": [
+								{
+									"key": "hotelId",
+									"value": "4618d18d-ccfd-4f7a-ad7d-2b1771dc987a"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 16 Dec 2024 15:40:32 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"isSuccess\": true,\n    \"message\": \"Successful request.\",\n    \"data\": {\n        \"id\": \"4618d18d-ccfd-4f7a-ad7d-2b1771dc987a\",\n        \"name\": \"El martir\",\n        \"country\": \"colombia\",\n        \"city\": \"Medellin\",\n        \"phone\": 45782,\n        \"description\": \"Hotel de lujo\",\n        \"isEnabled\": true,\n        \"createdAt\": \"2024-12-13T17:02:42.8291203\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Update-Hotel",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"El Baratazo\",\r\n    \"country\": \"Colombia\",\r\n    \"city\": \"Bucaramanda\",\r\n    \"phone\": 321465265,\r\n    \"description\": \"5 estrellas\",\r\n    \"disable\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Hotels/:hotelId",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Hotels",
+						":hotelId"
+					],
+					"variable": [
+						{
+							"key": "hotelId",
+							"value": "4B757439-9F14-4476-9F65-0CB1AEEFF6BB"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "State-Hotel",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"holtelId\": \"4618d18d-ccfd-4f7a-ad7d-2b1771dc987a\",\r\n  \"enable\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Hotels/State",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Hotels",
+						"State"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Hotels-Avaliable",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"checkInDate\": \"2024-12-17\",\r\n  \"checkOutDate\": \"2024-12-18\",\r\n  \"numberOfGuests\": 2,\r\n  \"destinationCity\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Hotels/Rooms",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Hotels",
+						"Rooms"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"checkInDate\": \"2024-12-17\",\r\n  \"checkOutDate\": \"2024-12-18\",\r\n  \"numberOfGuests\": 2,\r\n  \"destinationCity\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Hotels/Rooms",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Hotels",
+								"Rooms"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 17 Dec 2024 01:49:36 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"isSuccess\": true,\n    \"message\": \"Successful request.\",\n    \"totalData\": 1,\n    \"data\": [\n        {\n            \"hotelId\": \"4b757439-9f14-4476-9f65-0cb1aeeff6bb\",\n            \"roomId\": \"4629288f-793e-4520-aa8d-5bcae0b8d450\",\n            \"phone\": 0,\n            \"hotelName\": \"\",\n            \"roomNumber\": \"101\",\n            \"baseCost\": 100.12,\n            \"taxes\": 41.01,\n            \"type\": 1,\n            \"location\": \"Medellin ome\",\n            \"city\": \"string\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Add-Room",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"roomNumber\": \"201A\",\r\n    \"roomType\": 1,\r\n    \"baseCost\": 12.3,\r\n    \"taxes\": 0.12,\r\n    \"location\": \"Valledupar\",\r\n    \"bedCount\": 2,\r\n    \"capacity\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Hotels/:hotelId/Rooms",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Hotels",
+						":hotelId",
+						"Rooms"
+					],
+					"variable": [
+						{
+							"key": "hotelId",
+							"value": "4B757439-9F14-4476-9F65-0CB1AEEFF6BB"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update-Room",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"roomNumber\": \"101\",\r\n    \"roomType\": 1,\r\n    \"baseCost\": 100.12,\r\n    \"taxes\": 41.01,\r\n    \"location\": \"Medellin ome\",\r\n    \"bedCount\": 3,\r\n    \"capacity\": 6\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Hotels/:hotelId/Rooms/:roomId",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Hotels",
+						":hotelId",
+						"Rooms",
+						":roomId"
+					],
+					"variable": [
+						{
+							"key": "hotelId",
+							"value": "4B757439-9F14-4476-9F65-0CB1AEEFF6BB"
+						},
+						{
+							"key": "roomId",
+							"value": "4629288F-793E-4520-AA8D-5BCAE0B8D450"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"roomNumber\": \"101\",\r\n    \"roomType\": 1,\r\n    \"baseCost\": 100.12,\r\n    \"taxes\": 41.01,\r\n    \"location\": \"Medellin ome\",\r\n    \"bedCount\": 3,\r\n    \"capacity\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Hotels/:hotelId/Rooms/:roomId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Hotels",
+								":hotelId",
+								"Rooms",
+								":roomId"
+							],
+							"variable": [
+								{
+									"key": "hotelId",
+									"value": "4B757439-9F14-4476-9F65-0CB1AEEFF6BB"
+								},
+								{
+									"key": "roomId",
+									"value": "4629288F-793E-4520-AA8D-5BCAE0B8D450"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 16 Dec 2024 15:48:22 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"isSuccess\": true,\n    \"message\": \"Successful request.\",\n    \"data\": \"4629288f-793e-4520-aa8d-5bcae0b8d450\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update-Room-state",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"roomId\": \"4629288F-793E-4520-AA8D-5BCAE0B8D450\",\r\n    \"enable\": false,\r\n    \"reasonDisable\": \"Fuera de servicio\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Hotels/:hotelId/Rooms/State",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Hotels",
+						":hotelId",
+						"Rooms",
+						"State"
+					],
+					"variable": [
+						{
+							"key": "hotelId",
+							"value": "4B757439-9F14-4476-9F65-0CB1AEEFF6BB"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"roomNumber\": \"101\",\r\n    \"roomType\": 1,\r\n    \"baseCost\": 100.12,\r\n    \"taxes\": 41.01,\r\n    \"location\": \"Medellin ome\",\r\n    \"bedCount\": 3,\r\n    \"capacity\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Hotels/:hotelId/Rooms/:roomId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Hotels",
+								":hotelId",
+								"Rooms",
+								":roomId"
+							],
+							"variable": [
+								{
+									"key": "hotelId",
+									"value": "4B757439-9F14-4476-9F65-0CB1AEEFF6BB"
+								},
+								{
+									"key": "roomId",
+									"value": "4629288F-793E-4520-AA8D-5BCAE0B8D450"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 16 Dec 2024 15:48:22 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"isSuccess\": true,\n    \"message\": \"Successful request.\",\n    \"data\": \"4629288f-793e-4520-aa8d-5bcae0b8d450\"\n}"
+				}
+			]
+		},
+		{
+			"name": "get-Rooms",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"roomNumber\": \"201A\",\r\n    \"roomType\": 1,\r\n    \"baseCost\": 12.3,\r\n    \"taxes\": 0.12,\r\n    \"location\": \"Valledupar\",\r\n    \"bedCount\": 2,\r\n    \"capacity\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Hotels/:hotelId/Rooms?all=false",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Hotels",
+						":hotelId",
+						"Rooms"
+					],
+					"query": [
+						{
+							"key": "all",
+							"value": "false"
+						}
+					],
+					"variable": [
+						{
+							"key": "hotelId",
+							"value": "4B757439-9F14-4476-9F65-0CB1AEEFF6BB"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"roomNumber\": \"201A\",\r\n    \"roomType\": 1,\r\n    \"baseCost\": 12.3,\r\n    \"taxes\": 0.12,\r\n    \"location\": \"Valledupar\",\r\n    \"bedCount\": 2,\r\n    \"capacity\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Hotels/:hotelId/Rooms?all=false",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Hotels",
+								":hotelId",
+								"Rooms"
+							],
+							"query": [
+								{
+									"key": "all",
+									"value": "false"
+								}
+							],
+							"variable": [
+								{
+									"key": "hotelId",
+									"value": "4B757439-9F14-4476-9F65-0CB1AEEFF6BB"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 16 Dec 2024 15:44:31 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"isSuccess\": true,\n    \"message\": \"Successful request.\",\n    \"data\": [\n        {\n            \"hotelId\": \"4b757439-9f14-4476-9f65-0cb1aeeff6bb\",\n            \"id\": \"4629288f-793e-4520-aa8d-5bcae0b8d450\",\n            \"roomNumber\": \"202B\",\n            \"baseCost\": 10.1,\n            \"taxes\": 10.2,\n            \"type\": \"Type\",\n            \"location\": \"El Bosque\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Add-Passenger",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reservationId\": \"741F98A8-94A4-427A-ADAC-FE634993194C\", // opcional field\r\n    \"fullName\": \"Postam Bot\",\r\n    \"dateOfBirth\": \"1992-12-17\",\r\n    \"gender\": 1,\r\n    \"documentType\": 1,\r\n    \"documentNumber\": \"345254523\",\r\n    \"email\": \"yohe@mail.com\",\r\n    \"phoneNumber\": \"312456578\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Passengers",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Passengers"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Fail",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reservationId\": \"741F98A8-94A4-427A-ADAC-FE634993194C\", // opcional field\r\n    \"fullName\": \"Postam Bot\",\r\n    \"dateOfBirth\": \"1992-12-17\",\r\n    \"gender\": 1,\r\n    \"documentType\": 1,\r\n    \"documentNumber\": \"345254523\",\r\n    \"email\": \"yohe@mail.com\",\r\n    \"phoneNumber\": \"312456578\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Passengers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Passengers"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/problem+json"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 17 Dec 2024 14:24:49 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"Reservation.CannotAddPassenger\",\n    \"status\": 400,\n    \"detail\": \"The number of passengers for the reservation has already been registered\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create-reservation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"hotelId\": \"4b757439-9f14-4476-9f65-0cb1aeeff6bb\",\r\n    \"roomId\": \"4629288f-793e-4520-aa8d-5bcae0b8d450\",\r\n    \"travelerId\": \"8A0E35EF-27A9-4B32-A3E3-AE2AAB09887B\",\r\n    \"destinationCity\": \"string\",\r\n    \"checkInDate\": \"2024-12-17\",\r\n    \"checkOutDate\": \"2024-12-18\",\r\n    \"numberOfGuests\": 2,\r\n    \"emergencyContactFullName\": \"Yohe la Perez\",\r\n    \"emergencyContactPhoneNumber\": \"3004209245\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Reservations",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Reservations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/Reservations",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Reservations"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Reservations",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Reservations"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 17 Dec 2024 14:45:37 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"isSuccess\": true,\n    \"message\": \"Successful request.\",\n    \"totalData\": 1,\n    \"data\": [\n        {\n            \"id\": \"741f98a8-94a4-427a-adac-fe634993194c\",\n            \"hotelId\": \"4b757439-9f14-4476-9f65-0cb1aeeff6bb\",\n            \"roomId\": \"4629288f-793e-4520-aa8d-5bcae0b8d450\",\n            \"travelerId\": \"8a0e35ef-27a9-4b32-a3e3-ae2aab09887b\",\n            \"checkInDate\": \"2024-12-17T00:00:00\",\n            \"checkOutDate\": \"2024-12-18T00:00:00\",\n            \"reservationStatus\": \"ReservationStatus\",\n            \"numberOfGuests\": 2,\n            \"emergencyContact\": {\n                \"fullName\": \"Yohe la Perez\",\n                \"phoneNumber\": \"3004209245\"\n            },\n            \"passengerCount\": 2,\n            \"createdAt\": \"2024-12-17T03:19:09.1631526\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Get-ReservationsById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/Reservations/:reservationId",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Reservations",
+						":reservationId"
+					],
+					"variable": [
+						{
+							"key": "reservationId",
+							"value": "741F98A8-94A4-427A-ADAC-FE634993194C"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Reservations",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Reservations"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 17 Dec 2024 14:45:37 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"isSuccess\": true,\n    \"message\": \"Successful request.\",\n    \"totalData\": 1,\n    \"data\": [\n        {\n            \"id\": \"741f98a8-94a4-427a-adac-fe634993194c\",\n            \"hotelId\": \"4b757439-9f14-4476-9f65-0cb1aeeff6bb\",\n            \"roomId\": \"4629288f-793e-4520-aa8d-5bcae0b8d450\",\n            \"travelerId\": \"8a0e35ef-27a9-4b32-a3e3-ae2aab09887b\",\n            \"checkInDate\": \"2024-12-17T00:00:00\",\n            \"checkOutDate\": \"2024-12-18T00:00:00\",\n            \"reservationStatus\": \"ReservationStatus\",\n            \"numberOfGuests\": 2,\n            \"emergencyContact\": {\n                \"fullName\": \"Yohe la Perez\",\n                \"phoneNumber\": \"3004209245\"\n            },\n            \"passengerCount\": 2,\n            \"createdAt\": \"2024-12-17T03:19:09.1631526\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Reservations/:reservationId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Reservations",
+								":reservationId"
+							],
+							"variable": [
+								{
+									"key": "reservationId",
+									"value": "741F98A8-94A4-427A-ADAC-FE634993194C"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 17 Dec 2024 15:42:36 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"isSuccess\": true,\n    \"message\": \"Successful request.\",\n    \"data\": {\n        \"id\": \"741f98a8-94a4-427a-adac-fe634993194c\",\n        \"hotelId\": \"4b757439-9f14-4476-9f65-0cb1aeeff6bb\",\n        \"hotelName\": \"El Baratazo\",\n        \"roomId\": \"4629288f-793e-4520-aa8d-5bcae0b8d450\",\n        \"roomType\": 1,\n        \"roomNumber\": \"101\",\n        \"location\": \"Medellin ome\",\n        \"travelerId\": \"8a0e35ef-27a9-4b32-a3e3-ae2aab09887b\",\n        \"checkInDate\": \"2024-12-17T00:00:00\",\n        \"checkOutDate\": \"2024-12-18T00:00:00\",\n        \"reservationStatus\": 1,\n        \"numberOfGuests\": 2,\n        \"emergencyContact\": {\n            \"fullName\": \"Yohe la Perez\",\n            \"phoneNumber\": \"3004209245\"\n        },\n        \"passengers\": [\n            {\n                \"id\": \"908071ec-caa5-47fc-bac6-76c76c98d536\",\n                \"documentType\": 1,\n                \"fullName\": \"Postam Bot\",\n                \"dateOfBirth\": \"1992-12-17T00:00:00\",\n                \"documentNumber\": \"345254523\",\n                \"email\": \"yohe@mail.com\"\n            },\n            {\n                \"id\": \"c7630ea6-ace6-42cd-977a-779e01b2495d\",\n                \"documentType\": 1,\n                \"fullName\": \"Yohe la Perez La Sosa\",\n                \"dateOfBirth\": \"1992-12-17T00:00:00\",\n                \"documentNumber\": \"6543219\",\n                \"email\": \"yohe@mail.com\"\n            }\n        ],\n        \"passengerCount\": 2,\n        \"createdAt\": \"2024-12-17T03:19:09.1631526\"\n    }\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://localhost:7192",
+			"type": "string"
+		}
+	]
+}
