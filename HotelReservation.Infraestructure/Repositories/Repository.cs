@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+
 using Common;
 using HotelReservation.Application.Interfaces;
 using HotelReservation.Infraestructure.DataBase;
@@ -69,11 +70,6 @@ public class Repository<T, TId> : IRepository<T, TId> where T : EntityBase<TId>
         _dbContext.Set<T>().Update(entity);
     }
 
-    public async Task SaveChangesAsync()
-    {
-        await _dbContext.SaveChangesAsync();
-    }
-
     public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
     {
         return await _dbContext.Set<T>().AsNoTracking().AnyAsync(predicate);
@@ -85,7 +81,29 @@ public class Repository<T, TId> : IRepository<T, TId> where T : EntityBase<TId>
             _dbContext.Set<T>().AsQueryable();
     }
 
-    private IQueryable<T> IncludeMultiple(IQueryable<T> query, params string[] navigationProperties)
+    public async Task<T?> FindAsync(Expression<Func<T, bool>> predicate, bool isTraking = false, string[]? navigationProperties = null)
+    {
+        var query = _dbContext.Set<T>().AsQueryable();
+
+        if (!isTraking)
+        {
+            query = query.AsNoTracking();
+        }
+
+        if (navigationProperties != null && navigationProperties.Length > 0)
+        {
+            query = IncludeMultiple(query, navigationProperties);
+        }
+
+        return await query.SingleOrDefaultAsync(predicate);
+    }
+
+    public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    private static IQueryable<T> IncludeMultiple(IQueryable<T> query, params string[] navigationProperties)
     {
         if (navigationProperties != null)
         {

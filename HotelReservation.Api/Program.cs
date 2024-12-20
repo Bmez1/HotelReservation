@@ -7,8 +7,6 @@ using HotelReservation.Infraestructure.Configurations;
 
 using Serilog;
 
-using System.Text.Json.Serialization;
-
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
 
@@ -26,7 +24,7 @@ builder.Services.AddProblemDetails();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGenWithAuth();
 
 var app = builder.Build();
 
@@ -34,7 +32,6 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-//app.ApplyMigrations();
 
 
 app.UseSerilogRequestLogging();
@@ -42,6 +39,8 @@ app.UseSerilogRequestLogging();
 app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

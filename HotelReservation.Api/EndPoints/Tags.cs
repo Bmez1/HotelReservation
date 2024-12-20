@@ -6,4 +6,5 @@ public static class Tags
     public const string Reservations = "Reservations";
     public const string Rooms = "Rooms";
     public const string Passengers = "Passengers";
+    public const string Users = "Users";
 }
