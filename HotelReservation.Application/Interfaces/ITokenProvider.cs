@@ -4,5 +4,5 @@ namespace HotelReservation.Application.Interfaces;
 
 public interface ITokenProvider
 {
-    string Create(User user);
+    string Create(User user, HashSet<string> permissions);
 }

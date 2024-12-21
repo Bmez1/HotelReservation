@@ -2,4 +2,7 @@
 
 namespace HotelReservation.Application.Interfaces;
 
-public interface IUserRepository : IRepository<User, Guid> { }
+public interface IUserRepository : IRepository<User, Guid> 
+{
+    public Task<User?> GetByUserNameWithRolesAndPermissionsAsync(string userName);
+}

@@ -10,6 +10,8 @@ public sealed class User : EntityBase<Guid>
     public string LastName { get; set; }
     public string PasswordHash { get; set; }
 
+    public List<Role> Roles { get; set; } = [];
+
     private User(Guid id, string userName, string email, string firstName, string lastName, string passwordHash, DateTime createdAt)
     {
         Id = id;
