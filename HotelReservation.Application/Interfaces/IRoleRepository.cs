@@ -2,7 +2,7 @@
 
 namespace HotelReservation.Application.Interfaces;
 
-public interface ITokenProvider
+public interface IRoleRepository
 {
-    string Create(User user, HashSet<string> permissions);
+    public Task<Role?> GetByIdAsync(int id);
 }

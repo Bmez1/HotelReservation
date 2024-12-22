@@ -1,3 +1,5 @@
-﻿namespace HotelReservation.Api.EndPoints.Users.Request;
+﻿using HotelReservation.Domain.Enums;
 
-public sealed record RegisterUserRequest(string Email, string UserName, string FirstName, string LastName, string Password);
+namespace HotelReservation.Api.EndPoints.Users.Request;
+
+public sealed record RegisterUserRequest(string Email, string UserName, string FirstName, string LastName, string Password, Roles RoleId);

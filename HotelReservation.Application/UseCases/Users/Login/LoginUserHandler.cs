@@ -14,7 +14,7 @@ internal sealed class LoginUserHandler(
 {
     public async Task<Result<string>> Handle(LoginUserCommand command, CancellationToken cancellationToken)
     {
-        var user = await userRepository.FindAsync(u => u.UserName == command.UserName);
+        var user = await userRepository.GetByUserNameWithRolesAndPermissionsAsync(command.UserName);
 
         if (user is null)
         {
@@ -28,7 +28,12 @@ internal sealed class LoginUserHandler(
             return Result.Failure<string>(UserError.NotFoundByUserName);
         }
 
-        string token = tokenProvider.Create(user);
+        var rolesSet = user.Roles
+            .SelectMany(x => x.Permissions)
+            .Select(x => x.Name)
+            .ToHashSet();
+
+        string token = tokenProvider.Create(user, rolesSet);
 
         return token;
     }

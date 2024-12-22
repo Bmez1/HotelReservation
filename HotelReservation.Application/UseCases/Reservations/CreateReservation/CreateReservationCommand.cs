@@ -6,8 +6,6 @@ namespace HotelReservation.Application.UseCases.Reservations.CreateReservation
 {
     public record CreateReservationCommand(Guid HotelId,
         Guid RoomId,
-        Guid TravelerId,
-        string DestinationCity,
         DateTime CheckInDate,
         DateTime CheckOutDate,
         int NumberOfGuests,

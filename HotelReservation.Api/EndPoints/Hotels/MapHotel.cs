@@ -1,4 +1,5 @@
 ﻿using HotelReservation.Api.EndPoints.Hotels.Request;
+using HotelReservation.Api.Extensions;
 using HotelReservation.Api.HttpResponse;
 using HotelReservation.Application.UseCases.Hotels.ChangeStateHotel;
 using HotelReservation.Application.UseCases.Hotels.CreateHotel;
@@ -6,6 +7,7 @@ using HotelReservation.Application.UseCases.Hotels.GetHotelById;
 using HotelReservation.Application.UseCases.Hotels.GetHotels;
 using HotelReservation.Application.UseCases.Hotels.GetHotelsForReservation;
 using HotelReservation.Application.UseCases.Hotels.UpdateHotel;
+using HotelReservation.Domain.Enums;
 
 using MediatR;
 
@@ -21,7 +23,7 @@ public static class MapHotel
         {
             var result = await mediator.Send(new GetHotelsQuery(all));
             return result.ToHttpResponse();
-        });
+        }).HasPermission(Permissions.GetHotels);
 
         endpoints.MapGet("/{id:guid}", async (Guid id, IMediator mediator) =>
         {
@@ -39,7 +41,7 @@ public static class MapHotel
                 request.Description));
 
             return result.ToHttpResponse();
-        });
+        }).HasPermission(Permissions.GetHotels);
 
         endpoints.MapPut("/{id:guid}", async (Guid id, [FromBody] UpdateHotelRequest request, IMediator mediator) =>
         {
@@ -53,7 +55,7 @@ public static class MapHotel
                 request.Disable));
 
             return result.ToHttpResponse();
-        });
+        }).HasPermission(Permissions.UpdateHotel);
 
         endpoints.MapPut("/State", async ([FromBody] ChangeStateHotelRequest request, IMediator mediator) =>
         {
@@ -74,7 +76,9 @@ public static class MapHotel
                 ));
 
             return result.ToHttpResponse();
-        }).WithDescription("Endpoint used to retrieve available hotels with their rooms.");
+        })
+        .WithDescription("Endpoint used to retrieve available hotels with their rooms.")
+        .HasPermission(Permissions.UpdateHotel);
 
         return (RouteGroupBuilder)endpoints;
     }

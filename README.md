@@ -4,11 +4,14 @@ incluyendo la capa de dominio, aplicación e infraestructura.
 
 El proyecto aplica Arquitectura limpia y sigue principios de Domain-Driven Design, con una clara separación de las capas de dominio, aplicación e infraestructura, y el uso de patrones comunes como entidades, repositorios y objetos de valor.
 
-## Patrones de Diseño
+## Patrones de Diseño y Principios
 - Repositorio (Repository Pattern)
 - Inyección de Dependencias (Dependency Injection)
 - CQRS (Command Query Responsibility Segregation)
+- Result
 - SOLID
+- Role-based authorization
+- Permission-based authorization
 
 ## Estructura del Proyecto
 - HotelReservation.Domain: Contiene las entidades principales como Hotel, Room, Reservation, y sus respectivos atributos y métodos.
@@ -67,6 +70,11 @@ ReservationStatus Enum: este enum representa los estados de una reserva.
 - 2	CheckedIn
 - 3	Cancelled
 - 4	NoShow
+
+Roles Enum: este enum representa los estados de una reserva.
+
+- 1	TravelAgent
+- 2	Traveler
 
 ## Uso
 API Endpoints: La aplicación expone varios endpoints para interactuar con las funcionalidades de hoteles, habitaciones y reservas.

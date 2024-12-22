@@ -1,8 +1,10 @@
 ﻿using HotelReservation.Api.EndPoints.Users.Request;
+using HotelReservation.Api.Extensions;
 using HotelReservation.Api.HttpResponse;
 using HotelReservation.Application.UseCases.Users.GetById;
 using HotelReservation.Application.UseCases.Users.Login;
 using HotelReservation.Application.UseCases.Users.Register;
+using HotelReservation.Domain.Enums;
 
 using MediatR;
 
@@ -18,7 +20,9 @@ public static class MapUser
         {
             var result = await mediator.Send(new GetUserByIdQuery(userId));
             return result.ToHttpResponse();
-        });
+        })
+        .RequireAuthorization()
+        .HasPermission(Permissions.GetUsers);
 
 
         endpoints.MapPost("/", async ([FromBody] RegisterUserRequest request, IMediator mediator) =>
@@ -28,11 +32,14 @@ public static class MapUser
                 request.Email,
                 request.FirstName,
                 request.LastName,
-                request.Password
+                request.Password,
+                request.RoleId
                 ));
 
             return result.ToHttpResponse();
-        });
+        })
+        .RequireAuthorization()
+        .HasPermission(Permissions.CreateUser);
 
         endpoints.MapPost("/login", async ([FromBody] LoginRequest request, IMediator mediator) =>
         {

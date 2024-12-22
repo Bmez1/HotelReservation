@@ -1,7 +1,9 @@
 ﻿using HotelReservation.Api.EndPoints.Passangers.Request;
+using HotelReservation.Api.Extensions;
 using HotelReservation.Api.HttpResponse;
 using HotelReservation.Application.UseCases.Passengers.CreatePassenger;
 using HotelReservation.Application.UseCases.Passengers.GetPassengers;
+using HotelReservation.Domain.Enums;
 
 using MediatR;
 
@@ -27,13 +29,15 @@ public static class MapPassengers
                 );
             var result = await mediator.Send(createPassengerCommand);
             return result.ToHttpResponse();
-        }).WithDescription("ReservationId is optional");
+        })
+        .WithDescription("ReservationId is optional")
+        .HasPermission(Permissions.CreatePassenger);
 
         endpoints.MapGet("/", async (IMediator mediator) =>
         {
             var result = await mediator.Send(new GetPassengersQuery());
             return result.ToHttpResponse();
-        });
+        }).HasPermission(Permissions.GetPassengers);
 
         return (RouteGroupBuilder)endpoints;
     }

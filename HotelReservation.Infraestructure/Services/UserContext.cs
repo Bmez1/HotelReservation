@@ -20,4 +20,10 @@ internal sealed class UserContext : IUserContext
             .User
             .GetUserId() ??
         throw new ApplicationException("User context is unavailable");
+
+    public string Email => _httpContextAccessor
+            .HttpContext?
+            .User
+            .GetEmail() ??
+        throw new ApplicationException("User context is unavailable");
 }

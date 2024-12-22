@@ -1,9 +1,11 @@
 ﻿using HotelReservation.Application.Interfaces;
 using HotelReservation.Infraestructure.DataBase;
 using HotelReservation.Infraestructure.Repositories;
+using HotelReservation.Infraestructure.Security;
 using HotelReservation.Infraestructure.Services;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +21,7 @@ public static class DependencyInjection
         services
         .AddServices()
         .AddAuthenticationInternal(configuration)
+        .AddAuthorizationInternal()
         .AddDatabase(configuration);
 
     private static IServiceCollection AddServices(this IServiceCollection services)
@@ -29,6 +32,7 @@ public static class DependencyInjection
         services.AddScoped<IRoomRepository, RoomRepository>();
         services.AddScoped<IPassengerRepository, PassengerRepository>();
         services.AddScoped<IReservationRepository, ReservationRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IEmailSender, EmailSender>();
 
@@ -67,6 +71,17 @@ public static class DependencyInjection
         services.AddScoped<IUserContext, UserContext>();
         services.AddSingleton<IPasswordHasher, PasswordHasher>();
         services.AddSingleton<ITokenProvider, TokenProvider>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddAuthorizationInternal(this IServiceCollection services)
+    {
+        services.AddAuthorization();
+
+        services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
+
+        services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
 
         return services;
     }

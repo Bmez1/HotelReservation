@@ -20,3 +20,4 @@ public static class UserError
         "Users.UserNameNotUnique",
         "The provided username is not unique");
 }
+

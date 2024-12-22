@@ -19,7 +19,7 @@ public class HotelRepository : Repository<Hotel, Guid>, IHotelRepository
                     from reservation in reservationsGroup.DefaultIfEmpty()
                     where room.IsEnabled && 
                     hotel.IsEnabled &&
-                    hotel.City == city &&
+                    (city == null || hotel.City == city) &&
                     room.Capacity >= NumberOfGuests &&
                     (reservation == null || 
                     (reservation.CheckOutDate <= checkIn || reservation.CheckInDate >= checkOut))
