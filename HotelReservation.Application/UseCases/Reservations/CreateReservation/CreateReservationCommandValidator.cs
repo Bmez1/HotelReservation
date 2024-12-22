@@ -8,7 +8,6 @@ namespace HotelReservation.Application.UseCases.Reservations.CreateReservation
         {
             RuleFor(x => x.HotelId).NotEmpty();
             RuleFor(x => x.RoomId).NotEmpty();
-            RuleFor(x => x.TravelerId).NotEmpty();
             RuleFor(x => x.EmergencyContactFullName).NotEmpty();
             RuleFor(x => x.EmergencyContactPhoneNumber).NotEmpty();
 

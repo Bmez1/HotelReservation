@@ -33,8 +33,6 @@ public static class MapReservation
             var command = new CreateReservationCommand(
                 request.HotelId,
                 request.RoomId,
-                request.TravelerId,
-                request.DestinationCity,
                 request.CheckInDate,
                 request.CheckOutDate,
                 request.NumberOfGuests,

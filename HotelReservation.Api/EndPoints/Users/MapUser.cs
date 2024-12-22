@@ -32,13 +32,14 @@ public static class MapUser
                 request.Email,
                 request.FirstName,
                 request.LastName,
-                request.Password
+                request.Password,
+                request.RoleId
                 ));
 
             return result.ToHttpResponse();
         })
-          .RequireAuthorization()
-          .HasPermission(Permissions.CreateUser);
+        .RequireAuthorization()
+        .HasPermission(Permissions.CreateUser);
 
         endpoints.MapPost("/login", async ([FromBody] LoginRequest request, IMediator mediator) =>
         {

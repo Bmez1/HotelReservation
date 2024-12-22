@@ -24,4 +24,6 @@ public sealed class User : EntityBase<Guid>
     }
 
     public static User Create(string userName, string email, string firstName, string lastName, string passwordHash) => new        (Guid.NewGuid(), userName, email, firstName, lastName, passwordHash, DateTime.UtcNow);
+
+    public void AddRole(Role role) => Roles.Add(role);
 }

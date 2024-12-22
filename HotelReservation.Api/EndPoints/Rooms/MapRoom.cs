@@ -66,7 +66,7 @@ public static class MapRoom
                 request.ReasonDisable));
 
             return result.ToHttpResponse();
-        }).HasPermission(Permissions.UpdateRoom); ;
+        }).HasPermission(Permissions.UpdateRoom);
 
         return (RouteGroupBuilder)endpoints;
     }

@@ -8,7 +8,9 @@ using MediatR;
 
 namespace HotelReservation.Application.UseCases.Users.Register;
 
-internal sealed class RegisterUserCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher)
+internal sealed class RegisterUserCommandHandler(IUserRepository userRepository,
+    IRoleRepository roleRepository,
+    IPasswordHasher passwordHasher)
     : IRequestHandler<RegisterUserCommand, Result<Guid>>
 {
     public async Task<Result<Guid>> Handle(RegisterUserCommand command, CancellationToken cancellationToken)
@@ -18,13 +20,22 @@ internal sealed class RegisterUserCommandHandler(IUserRepository userRepository,
             return Result.Failure<Guid>(UserError.UserNameNotUnique);
         }
 
-        var user = User.Create(
+        var role = await roleRepository.GetByIdAsync((int)command.RoleId);
+
+        if (role is null)
+        {
+            return Result.Failure<Guid>(RoleError.NotFound((int)command.RoleId));
+        }
+
+        User user = User.Create(
             command.UserName,
             command.Email,
             command.FirstName,
             command.LastName,
             passwordHasher.Hash(command.Password)
             );
+
+        user.AddRole(role);
 
         await userRepository.AddAsync(user);
 
