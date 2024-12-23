@@ -10,7 +10,7 @@ public static class UserError
 
     public static Error Unauthorized => Error.Failure(
         "Users.Unauthorized",
-        "You are not authorized to perform this action.");
+        "You are only authorized to access your own information.");
 
     public static readonly Error NotFoundByUserName = Error.NotFound(
         "Users.NotFoundByUserName",
