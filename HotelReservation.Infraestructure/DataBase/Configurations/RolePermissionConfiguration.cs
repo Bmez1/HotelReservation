@@ -18,6 +18,7 @@ internal sealed class RolePermissionConfiguration
             Create(Role.Traveler, Permissions.CreateReservation),
             Create(Role.Traveler, Permissions.GetReservations),
             Create(Role.Traveler, Permissions.CreatePassenger),
+            Create(Role.Traveler, Permissions.GetHotels),
             Create(Role.TravelAgent, Permissions.GetReservations),
             Create(Role.TravelAgent, Permissions.CreatePassenger),
             Create(Role.TravelAgent, Permissions.GetPassengers),
