@@ -1,4 +1,6 @@
-﻿namespace HotelReservation.Api.EndPoints.Reservations.Request
+﻿using HotelReservation.Api.EndPoints.Passangers.Request;
+
+namespace HotelReservation.Api.EndPoints.Reservations.Request
 {
     public class CreateReservationRequest
     {
@@ -9,5 +11,7 @@
         public int NumberOfGuests { get; init; }
         public string EmergencyContactFullName { get; init; } = string.Empty;
         public string EmergencyContactPhoneNumber { get; init; } = string.Empty;
+
+        public List<CreatePassengerRequest> Passengers { get; init; } = [];
     }
 }

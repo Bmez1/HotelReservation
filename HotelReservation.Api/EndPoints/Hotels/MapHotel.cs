@@ -64,7 +64,7 @@ public static class MapHotel
                 request.Enable));
 
             return result.ToHttpResponse();
-        });
+        }).HasPermission(Permissions.UpdateHotel);
 
         endpoints.MapPost("/Rooms", async ([FromBody] HotelSearchRequest request, IMediator mediator) =>
         {
@@ -78,7 +78,7 @@ public static class MapHotel
             return result.ToHttpResponse();
         })
         .WithDescription("Endpoint used to retrieve available hotels with their rooms.")
-        .HasPermission(Permissions.UpdateHotel);
+        .HasPermission(Permissions.GetHotels);
 
         return (RouteGroupBuilder)endpoints;
     }

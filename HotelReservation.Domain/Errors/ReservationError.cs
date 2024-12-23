@@ -10,6 +10,6 @@ namespace HotelReservation.Domain.Errors
 
         public static Error CannotAddPassenger => Error.Validation(
             "Reservation.CannotAddPassenger",
-       "The number of passengers for the reservation has already been registered");
+       "The number of passengers for the reservation exceeds the room capacity");
     }
 }

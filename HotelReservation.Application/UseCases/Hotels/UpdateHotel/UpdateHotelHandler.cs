@@ -31,7 +31,8 @@ public class UpdateHotelHandler(IHotelRepository hotelRepository) : IRequestHand
 
         var existsHotel = await hotelRepository.ExistsAsync(hotel => hotel.Name.Equals(request.Name) &&
             hotel.City.Equals(request.City) &&
-            hotel.Country.Equals(request.Country));
+            hotel.Country.Equals(request.Country) && 
+            hotel.Id != request.HotelId);
 
         if (existsHotel)
         {

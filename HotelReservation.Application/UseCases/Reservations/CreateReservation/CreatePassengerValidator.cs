@@ -2,7 +2,7 @@
 
 using HotelReservation.Domain.Enums;
 
-namespace HotelReservation.Application.UseCases.Passengers.CreatePassenger
+namespace HotelReservation.Application.UseCases.Reservations.CreateReservation
 {
     public class CreatePassengerValidator : AbstractValidator<CreatePassengerCommand>
     {
