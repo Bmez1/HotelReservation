@@ -70,6 +70,16 @@ public class Repository<T, TId> : IRepository<T, TId> where T : EntityBase<TId>
         _dbContext.Set<T>().Update(entity);
     }
 
+    public void EditRangeAsync(IEnumerable<T> entities)
+    {
+        _dbContext.Set<T>().UpdateRange(entities);
+    }
+
+    public async Task AddRangeAsync(IEnumerable<T> entities)
+    {
+        await _dbContext.Set<T>().AddRangeAsync(entities);
+    }
+
     public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
     {
         return await _dbContext.Set<T>().AsNoTracking().AnyAsync(predicate);

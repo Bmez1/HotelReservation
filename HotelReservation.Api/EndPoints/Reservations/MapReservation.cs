@@ -37,7 +37,16 @@ public static class MapReservation
                 request.CheckOutDate,
                 request.NumberOfGuests,
                 request.EmergencyContactFullName,
-                request.EmergencyContactPhoneNumber);
+                request.EmergencyContactPhoneNumber,
+                request.Passengers.Select(x => new CreatePassengerCommand(
+                    x.FullName,
+                    x.DateOfBirth,
+                    x.Gender,
+                    x.DocumentType,
+                    x.DocumentNumber,
+                    x.Email,
+                    x.PhoneNumber
+                )).ToList());
 
             var result = await mediator.Send(command);
             return result.ToHttpResponse();

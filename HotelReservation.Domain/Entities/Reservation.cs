@@ -16,7 +16,7 @@ namespace HotelReservation.Domain.Entities
         public int NumberOfGuests { get; private set; }
         public EmergencyContact EmergencyContact { get; private set; }
         public List<Passenger> Passengers { get; private set; } = [];
-        public int PassengerCount { get; private set; } = 0;
+        public int PassengerCount { get; private set; }
 
         private Reservation() { }
 
@@ -74,8 +74,5 @@ namespace HotelReservation.Domain.Entities
             Passengers.Add(passenger);
             PassengerCount++;
         }
-
-        public bool CanAddPassenger() => PassengerCount < NumberOfGuests;
-
     }
 }

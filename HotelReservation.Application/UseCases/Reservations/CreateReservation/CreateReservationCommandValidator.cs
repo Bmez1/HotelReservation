@@ -30,6 +30,11 @@ namespace HotelReservation.Application.UseCases.Reservations.CreateReservation
                 .WithMessage("Number of guests is required.")
                 .GreaterThan(0)
                 .WithMessage("Number of guests must be greater than 0.");
+
+            RuleFor(x => x.Passengers)
+                .NotEmpty();
+
+            RuleForEach(x => x.Passengers).SetValidator(new CreatePassengerValidator());
         }
 
         private static bool BeAFutureDate(DateTime date)

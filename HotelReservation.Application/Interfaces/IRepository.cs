@@ -11,8 +11,10 @@ public interface IRepository<T, TId> where T : EntityBase<TId>
     Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate);
     Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> predicate, bool isTraking = false, string[]? navigationProperties = null);
     Task AddAsync(T entity);
+    Task AddRangeAsync(IEnumerable<T> entities);
     void DeleteAsync(T entity);
     void EditAsync(T entity);
+    void EditRangeAsync(IEnumerable<T> entities);
     IQueryable<T> QueryAsync(bool isTraking = false);
 
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
